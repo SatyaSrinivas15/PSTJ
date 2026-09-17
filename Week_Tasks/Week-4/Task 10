@@ -1,0 +1,40 @@
+import java.util.*;
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int r = sc.nextInt();
+        int[][] a = new int[m][n];
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                a[i][j] = sc.nextInt();
+        for (int layer = 0; layer < Math.min(m, n) / 2; layer++) {
+            ArrayList<Integer> temp = new ArrayList<>();
+            for (int j = layer; j < n - layer; j++)
+                temp.add(a[layer][j]);
+            for (int i = layer + 1; i < m - layer; i++)
+                temp.add(a[i][n - layer - 1]);
+            for (int j = n - layer - 2; j >= layer; j--)
+                temp.add(a[m - layer - 1][j]);
+            for (int i = m - layer - 2; i > layer; i--)
+                temp.add(a[i][layer]);
+            int len = temp.size();
+            int shift = r % len;
+            int p = 0;
+            for (int j = layer; j < n - layer; j++)
+                a[layer][j] = temp.get((p++ + shift) % len);
+            for (int i = layer + 1; i < m - layer; i++)
+                a[i][n - layer - 1] = temp.get((p++ + shift) % len);
+            for (int j = n - layer - 2; j >= layer; j--)
+                a[m - layer - 1][j] = temp.get((p++ + shift) % len);
+            for (int i = m - layer - 2; i > layer; i--)
+                a[i][layer] = temp.get((p++ + shift) % len);
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++)
+                System.out.print(a[i][j] + " ");
+            System.out.println();
+        }
+    }
+}

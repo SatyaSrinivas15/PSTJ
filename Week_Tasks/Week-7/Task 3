@@ -1,0 +1,26 @@
+class UndergroundSystem {
+    HashMap<Integer, String> station = new HashMap<>();
+    HashMap<Integer, Integer> time = new HashMap<>();
+    HashMap<String, int[]> trips = new HashMap<>();
+    public UndergroundSystem() {
+    }
+    public void checkIn(int id, String stationName, int t) {
+        station.put(id, stationName);
+        time.put(id, t);
+    }
+    public void checkOut(int id, String stationName, int t) {
+        String start = station.get(id);
+        int startTime = time.get(id);
+        String route = start + "#" + stationName;
+        int travel = t - startTime;
+        if (!trips.containsKey(route))
+            trips.put(route, new int[]{0, 0});
+        trips.get(route)[0] += travel;
+        trips.get(route)[1]++;
+    }
+    public double getAverageTime(String startStation, String endStation) {
+        String route = startStation + "#" + endStation;
+        int[] data = trips.get(route);
+        return (double) data[0] / data[1];
+    }
+}

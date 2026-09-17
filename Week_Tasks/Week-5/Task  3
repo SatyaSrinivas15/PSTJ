@@ -1,0 +1,31 @@
+import java.util.*;
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            long current = sc.nextLong();
+            long maxSubarray = current;
+            long maxSubsequence = current;
+            boolean hasPositive = current > 0;
+            for (int i = 1; i < n; i++) {
+                long x = sc.nextLong();
+                current = Math.max(x, current + x);
+                maxSubarray = Math.max(maxSubarray, current);
+                if (x > 0) {
+                    if (!hasPositive) {
+                        maxSubsequence = 0;
+                        hasPositive = true;
+                    }
+                    maxSubsequence += x;
+                } else if (!hasPositive && x > maxSubsequence) {
+                    maxSubsequence = x;
+                }
+            }
+            System.out.println(maxSubarray + " " + maxSubsequence);
+        }
+
+        sc.close();
+    }
+}

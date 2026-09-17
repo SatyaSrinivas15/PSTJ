@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+public class Solution {
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        List<Integer> result = new ArrayList<>();
+        for (int g : grades) {
+            if (g >= 38 && g % 5 >= 3)
+                g += 5 - g % 5;
+            result.add(g);
+        }
+        return result;
+    }
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Integer> grades = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            grades.add(sc.nextInt());
+        List<Integer> result = gradingStudents(grades);
+        for (int g : result)
+            System.out.println(g);
+        sc.close();
+    }
+}

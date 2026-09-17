@@ -1,0 +1,21 @@
+class BrowserHistory {
+    ArrayList<String> list = new ArrayList<>();
+    int cur = 0;
+    public BrowserHistory(String homepage) {
+        list.add(homepage);
+    }
+    public void visit(String url) {
+        while (list.size() > cur + 1)
+            list.remove(list.size() - 1);
+        list.add(url);
+        cur++;
+    }
+    public String back(int steps) {
+        cur = Math.max(0, cur - steps);
+        return list.get(cur);
+    }
+    public String forward(int steps) {
+        cur = Math.min(list.size() - 1, cur + steps);
+        return list.get(cur);
+    }
+}
